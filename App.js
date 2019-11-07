@@ -1,114 +1,114 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, TextInput} from 'react-native';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+const listItems = [
+  {name: 'vikky pall', place: 'coimbatore'},
+  {name: 'indrajith venugopal', place: 'ernamkulam'},
+  {name: 'deepak s', place: 'palakkadu'},
+  {name: 'mahesh', place: 'trivandrum'},
+  {name: 'vishnu s pillai', place: 'idduki'},
+  {name: 'suralal s suresh', place: 'trivandrum'},
+];
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default class App extends Component {
+  state = {
+    search: null,
+  };
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.welcome}>Employees list Neoito</Text>
+        </View>
+        <View style={styles.input_box}>
+          <TextInput
+            style={styles.input}
+            placeholder="Search by names"
+            onChangeText={text => {
+              this.setState({search: text});
+            }}
+            value={this.state.search}
+          />
+        </View>
+        {listItems
+          .filter(employee => {
+            return !this.state.search || employee.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1;
+          })
+          .map((employee, index) => {
+            return (
+              <View key={employee.name} style={[styles.list_items, {backgroundColor: index % 2 === 0 ? 'white' : '#eee'}]}>
+                <View style={styles.list_no}>
+                  <Text style={styles.list_no_i}>{index + 1}</Text>
+                </View>
+                <View style={styles.list_detail}>
+                  <Text style={styles.list_name}>{employee.name}</Text>
+                  <Text style={styles.list_sutitle}>{employee.place}</Text>
+                </View>
+                <View style={styles.list_info}>
+                  <Text>More..</Text>
+                </View>
+              </View>
+            );
+          })}
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  header: {
+    backgroundColor: 'teal',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  welcome: {
+    fontSize: 30,
+    textAlign: 'center',
+    margin: 10,
+    color: '#fff',
   },
-  body: {
-    backgroundColor: Colors.white,
+  list_items: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    flexDirection: 'row',
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  list_no: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  list_no_i: {
+    color: 'green',
+    fontSize: 15,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
+  list_detail: {
+    flexDirection: 'column',
+    flex: 8,
   },
-  highlight: {
-    fontWeight: '700',
+  list_name: {
+    fontSize: 20,
+    textTransform: 'uppercase',
   },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  list_sutitle: {
+    fontSize: 15,
+    color: 'grey',
+    textTransform: 'capitalize',
+  },
+  list_info: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input_box: {
+    padding: 10,
+  },
+  input: {
+    marginBottom: 10,
+    padding: 5,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    color: '#444',
+    borderBottomWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#eee',
   },
 });
-
-export default App;
