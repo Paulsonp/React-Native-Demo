@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TextInput} from 'react-native';
 
+import Header from 'component/header';
+
 const listItems = [
   {name: 'vikky pall', place: 'coimbatore'},
   {name: 'indrajith venugopal', place: 'ernamkulam'},
@@ -18,9 +20,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.welcome}>Employees list Neoito</Text>
-        </View>
+        <Header />
         <View style={styles.input_box}>
           <TextInput
             style={styles.input}
@@ -57,14 +57,8 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: 'teal',
-  },
-  welcome: {
-    fontSize: 30,
-    textAlign: 'center',
-    margin: 10,
-    color: '#fff',
+  container: {
+    flex: 1,
   },
   list_items: {
     paddingTop: 10,
