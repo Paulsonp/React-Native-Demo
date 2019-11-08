@@ -1,28 +1,20 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TextInput, ScrollView, FlatList} from 'react-native';
+// import axios from 'axios'
 
 import Header from 'component/Header';
 import ListRow from 'component/ListRow';
-const listItems = [
-  {name: 'vikky pall', place: 'coimbatore'},
-  {name: 'indrajith venugopal', place: 'ernamkulam'},
-  {name: 'deepak s', place: 'palakkadu'},
-  {name: 'mahesh', place: 'trivandrum'},
-  {name: 'vishnu s pillai', place: 'idduki'},
-  {name: 'suralal s suresh', place: 'trivandrum'},
-  {name: 'vibin thomas', place: 'angamali'},
-  {name: 'lenin jayaraj', place: 'edukki'},
-  {name: 'chandulal', place: 'trivandrum'},
-  {name: 'sneha', place: 'kannur'},
-  {name: 'paulson ps', place: 'trivandrum'},
-  {name: 'jayakrishnan', place: 'trivandrum'},
-];
 
 export default class App extends Component {
   state = {
     search: null,
+    listItems: [],
   };
-
+  componentDidMount() {
+    fetch('http://localhost:3000/employee')
+      .then(response => response.json())
+      .then(result => this.setState({listItems: result}));
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -38,7 +30,7 @@ export default class App extends Component {
           />
         </View>
         <FlatList
-          data={listItems.filter(employee => {
+          data={this.state.listItems.filter(employee => {
             return !this.state.search || employee.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1;
           })}
           renderItem={({item, index}) => <ListRow employee={item} index={index} />}
