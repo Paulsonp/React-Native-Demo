@@ -29,8 +29,11 @@ export default class ListRow extends Component {
         {this.state.showInfo && (
           <View style={styles.moreText}>
             <Text>hide and show</Text>
-
-            <Image source={{uri: 'http://localhost:3000/images/${employee.image}'}} />
+            <Image
+              style={styles.propic}
+              source={{uri: `http://localhost:3000/images/${employee.image}`}}
+              resizeMode="contain"
+            />
           </View>
         )}
       </View>
@@ -97,5 +100,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'green',
     borderRadius: 4,
+  },
+  propic: {
+    flex: 1,
+    backgroundColor: '#eee',
+    height: 100,
   },
 });

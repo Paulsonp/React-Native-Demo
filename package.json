@@ -10,14 +10,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@babel/runtime": "^7.1.2",
+    "axios": "^0.18.0",
     "eslint-config-universe": "^2.0.0",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-native": "^3.8.1",
     "prettier": "^1.18.2",
     "react": "16.9.0",
     "react-native": "0.61.4",
-    "@babel/runtime": "^7.1.2",
-    "axios": "^0.18.0"
+    "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.2",

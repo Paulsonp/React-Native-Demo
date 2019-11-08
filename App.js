@@ -11,7 +11,7 @@ export default class App extends Component {
     listItems: [],
   };
   componentDidMount() {
-    fetch('http://localhost:3000/employee')
+    fetch('http://192.168.1.199:3000/employee')
       .then(response => response.json())
       .then(result => this.setState({listItems: result}));
   }
