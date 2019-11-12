@@ -6,7 +6,10 @@ export default class ListRow extends Component {
     showInfo: false,
   };
   morePressed = () => {
-    this.setState({showInfo: !this.state.showInfo});
+    // this.setState({showInfo: !this.state.showInfo});
+    this.props.navigation.navigate('Info', {
+      place: this.props.employee,
+    });
   };
   render() {
     const {employee, index} = this.props;
@@ -26,16 +29,16 @@ export default class ListRow extends Component {
             </TouchableHighlight>
           </View>
         </View>
-        {this.state.showInfo && (
+        {/* {this.state.showInfo && (
           <View style={styles.moreText}>
-            <Text>hide and show</Text>
+            <Text>Position: {employee.position}</Text>
             <Image
               style={styles.propic}
               source={{uri: `http://localhost:3000/images/${employee.image}`}}
               resizeMode="contain"
             />
           </View>
-        )}
+        )} */}
       </View>
     );
   }

@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, FlatList} from 'react-native';
+import {StyleSheet, View, Text, TextInput, FlatList, Image} from 'react-native';
 // import axios from 'axios'
-import PizzaImage from 'images/pizza.png';
 import Header from 'component/Header';
 import ListRow from 'component/ListRow';
+import LogoImage from 'images/logo.png';
 
 export default class EmployeeList extends Component {
+  static navigationOptions = {
+    header: null,
+  };
   state = {
     search: null,
     listItems: [],
@@ -20,10 +23,9 @@ export default class EmployeeList extends Component {
       <View style={styles.container}>
         <View
           style={{
-            marginTop: 40,
             alignItems: 'center',
           }}>
-          <Image source={PizzaImage} />
+          <Image style={[Platform.OS === 'ios' ? {marginTop: 50} : {marginTop: 10}]} resizeMode="contain" source={LogoImage} />
         </View>
         <Header />
         <View style={styles.input_box}>
@@ -38,9 +40,14 @@ export default class EmployeeList extends Component {
         </View>
         <FlatList
           data={this.state.listItems.filter(employee => {
-            return !this.state.search || employee.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1;
+            return (
+              !this.state.search ||
+              employee.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1 ||
+              employee.place.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1 ||
+              employee.position.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1
+            );
           })}
-          renderItem={({item, index}) => <ListRow employee={item} index={index} />}
+          renderItem={({item, index}) => <ListRow employee={item} index={index} navigation={this.props.navigation} />}
           keyExtractor={item => item.name}
           initialNumToRender={10}
         />

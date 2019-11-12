@@ -1,13 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  header: {
-    backgroundColor: 'teal',
-  },
   welcome: {
-    fontSize: 30,
-    textAlign: 'center',
+    fontSize: 20,
+    textAlign: 'left',
     margin: 10,
-    color: '#fff',
+    color: '#000',
   },
 });

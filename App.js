@@ -1,64 +1,50 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, FlatList} from 'react-native';
-// import axios from 'axios'
+import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 
-import Header from 'component/Header';
-import ListRow from 'component/ListRow';
+import EmployeeList from 'component/EmployeeList';
+import EmployeeInfo from 'component/EmployeeInfo';
+import AboutApp from 'component/AboutApp';
 
-export default class App extends Component {
-  state = {
-    search: null,
-    listItems: [],
-  };
-  componentDidMount() {
-    fetch('http://192.168.1.199:3000/employee')
-      .then(response => response.json())
-      .then(result => this.setState({listItems: result}));
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Header />
-        <View style={styles.input_box}>
-          <TextInput
-            style={styles.input}
-            placeholder="Search by names"
-            onChangeText={text => {
-              this.setState({search: text});
-            }}
-            value={this.state.search}
-          />
-        </View>
-        <FlatList
-          data={this.state.listItems.filter(employee => {
-            return !this.state.search || employee.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1;
-          })}
-          renderItem={({item, index}) => <ListRow employee={item} index={index} />}
-          keyExtractor={item => item.name}
-          initialNumToRender={10}
-        />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+export default createStackNavigator(
+  {
+    Home: {screen: EmployeeList},
+    Info: {screen: EmployeeInfo},
   },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'teal',
+        color: '#fff',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        color: '#fff',
+      },
+    },
+  },
+);
 
-  input_box: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
+const TabNavigator = createBottomTabNavigator(
+  {
+    List: {screen: EmployeeList},
+    About: {screen: AboutApp},
   },
-  input: {
-    padding: 5,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    color: '#444',
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    backgroundColor: '#eee',
+  {
+    defaultNavigationOptions: ({navigation}) => {
+      return {
+        tabBarIcon: ({tintColor}) => {
+          const route = navigation.state.routeName;
+          console.log('route', route);
+          const name = {
+            List: 'list',
+            About: 'info-circle',
+          }[route];
+          return <Icon name={name} color={tintColor} size={22} />;
+        },
+        tabBarOptions: {
+          activeBackgroundColor: '#E6F0FA',
+        },
+      };
+    },
   },
-});
+);
