@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "eslint-config-universe": "^2.0.0",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-native": "^3.8.1",
